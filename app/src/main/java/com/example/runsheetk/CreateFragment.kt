@@ -25,8 +25,8 @@ import com.google.firebase.database.FirebaseDatabase
 // */
 class CreateFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+//    private var param1: String? = null
+//    private var param2: String? = null
 
     private var _binding: FragmentCreateBinding? = null
     private val binding get() = _binding!!
@@ -67,21 +67,18 @@ class CreateFragment : Fragment() {
     }
 
     private fun saveData() {
-
         val cueName = binding.editTextCueName.text.toString()
         val estTime = binding.editTextEstTime.text.toString()
-        val category = binding.spinnerCategory.selectedItem.toString()
+        val category = binding.editTextCategory.text.toString()
         val notes = binding.editTextNotes.text.toString()
 
         if (cueName.isEmpty()) {
             binding.editTextCueName.error = "Please enter cue name"
-            binding.editTextCueName.requestFocus()
             return
         }
 
         if (estTime.isEmpty()) {
             binding.editTextEstTime.error = "Please enter estimated time"
-            binding.editTextEstTime.requestFocus()
             return
         }
 
@@ -90,19 +87,20 @@ class CreateFragment : Fragment() {
             return
         }
 
-
         val cueId = firebaseRef.push().key!!
         val cues = Cues(cueId, cueName, estTime, category, notes)
 
-        firebaseRef.child(cueId).setValue(cues).addOnCompleteListener {
-            Toast.makeText(context, "Cue saved", Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_createFragment_to_sheetFragment)
-        }
-
-            .addOnFailureListener{
-        Toast.makeText(context, "Error! Cue not saved: ${it.message}", Toast.LENGTH_SHORT).show()
-        }
+        firebaseRef.child(cueId).setValue(cues)
+            .addOnCompleteListener {
+                Toast.makeText(context, "Cue saved", Toast.LENGTH_SHORT).show()
+                // Only navigate if all fields are filled
+                findNavController().navigate(R.id.action_createFragment_to_sheetFragment)
+            }
+            .addOnFailureListener {
+                Toast.makeText(context, "Error! Cue not saved: ${it.message}", Toast.LENGTH_SHORT).show()
+            }
     }
+
 
 //    companion object {
 //        /**

@@ -5,9 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.runsheetk.adapter.RvCuesAdapter
 import com.example.runsheetk.databinding.FragmentSheetBinding
+import com.example.runsheetk.models.Cues
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 //// TODO: Rename parameter arguments, choose names that match
 //// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,11 +30,14 @@ import com.example.runsheetk.databinding.FragmentSheetBinding
 // */
 class SheetFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+//    private var param1: String? = null
+//    private var param2: String? = null
 
     private var _binding: FragmentSheetBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var cueList: java.util.ArrayList<Cues>
+    private lateinit var firebaseRef : DatabaseReference
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
@@ -49,9 +61,49 @@ class SheetFragment : Fragment() {
             findNavController().navigate(R.id.action_sheetFragment_to_createFragment)
             Toast.makeText(context, "Hello", Toast.LENGTH_SHORT).show()
         }
+
+        firebaseRef = FirebaseDatabase.getInstance().getReference("cues")
+        cueList = arrayListOf()
+
+        fetchData()
+
+        binding.cueRv.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this.context)
+        }
+
         return binding.root
     }
 
+    private fun fetchData() {
+//        TODO("Not yet implemented")
+
+        firebaseRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+//                TODO("Not yet implemented")
+
+                cueList.clear()
+                if (snapshot.exists()) {
+                    for (cuesSnapshot in snapshot.children) {
+                        val cue = cuesSnapshot.getValue(Cues::class.java)
+                        cueList.add(cue!!)
+                    }
+//                    binding.cueRv.adapter = RvCuesAdapter(cueList)
+                }
+                val cueAdapter = RvCuesAdapter(cueList)
+
+                binding.cueRv.adapter = cueAdapter
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+//                TODO("Not yet implemented")
+
+
+                Toast.makeText(context, "error: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+
+        })
+    }
 
 
 //    companion object {
