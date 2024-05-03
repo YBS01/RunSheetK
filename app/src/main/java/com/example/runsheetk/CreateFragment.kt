@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.runsheetk.databinding.FragmentCreateBinding
@@ -31,7 +32,19 @@ class CreateFragment : Fragment() {
     private var _binding: FragmentCreateBinding? = null
     private val binding get() = _binding!!
 
+    val statuses = arrayOf("Pending",
+                            "Standby",
+                            "Live",
+                            "Complete")
+    val categories = arrayOf("Technical Director",
+                                "Audio Engineer",
+                                "Lighting Technician",
+                                "Stage Manager",
+                                "Production Assistant")
+
     private lateinit var firebaseRef: DatabaseReference
+
+
 
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +70,9 @@ class CreateFragment : Fragment() {
             saveData()
         }
 
+        binding.editTextStatus.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, statuses)
+        binding.editTextCategory.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, categories)
+
 //        return inflater.inflate(R.layout.fragment_sheet, container, false)
 
 //        binding.saveButton.setOnClickListener {
@@ -69,8 +85,10 @@ class CreateFragment : Fragment() {
     private fun saveData() {
         val cueName = binding.editTextCueName.text.toString()
         val estTime = binding.editTextEstTime.text.toString()
-        val category = binding.editTextCategory.text.toString()
+        val category = binding.editTextCategory.selectedItem.toString()
         val notes = binding.editTextNotes.text.toString()
+        val status = binding.editTextStatus.selectedItem.toString()
+
 
         if (cueName.isEmpty()) {
             binding.editTextCueName.error = "Please enter cue name"
@@ -88,7 +106,7 @@ class CreateFragment : Fragment() {
         }
 
         val cueId = firebaseRef.push().key!!
-        val cues = Cues(cueId, cueName, estTime, category, notes)
+        val cues = Cues(cueId, cueName, estTime, category, notes, status)
 
         firebaseRef.child(cueId).setValue(cues)
             .addOnCompleteListener {

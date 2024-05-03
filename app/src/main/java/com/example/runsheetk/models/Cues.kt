@@ -12,5 +12,6 @@ data class Cues(
     val name: String? = null,
     val time: String? = null,
     val category: String? = null,
-    val notes: String? = null
+    val notes: String? = null,
+    val status: String? = null
 )

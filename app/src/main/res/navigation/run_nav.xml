@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_sheetFragment_to_createFragment"
             app:destination="@id/createFragment" />
+        <action
+            android:id="@+id/action_sheetFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
     </fragment>
     <fragment
         android:id="@+id/createFragment"
@@ -22,5 +25,32 @@
         <action
             android:id="@+id/action_createFragment_to_sheetFragment"
             app:destination="@id/sheetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.example.runsheetk.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" >
+        <action
+            android:id="@+id/action_updateFragment_to_sheetFragment"
+            app:destination="@id/sheetFragment" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+        <argument
+            android:name="time"
+            app:argType="string" />
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <argument
+            android:name="notes"
+            app:argType="string" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="status"
+            app:argType="string" />
     </fragment>
 </navigation>

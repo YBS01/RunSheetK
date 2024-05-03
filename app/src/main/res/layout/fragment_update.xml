@@ -1,19 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".CreateFragment"
+    tools:context=".UpdateFragment"
     android:padding="16dp">
 
-    <!-- Use a ConstraintLayout for better flexibility -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <!-- Cue Name EditText -->
         <EditText
-            android:id="@+id/editTextCueName"
+            android:id="@+id/editTextCueNameUpdate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -22,59 +22,61 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Estimated Time (Duration) EditText -->
         <EditText
-            android:id="@+id/editTextEstTime"
+            android:id="@+id/editTextEstTimeUpdate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="Enter Estimated Time (e.g., 5 minutes)"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextCueName" />
+            app:layout_constraintTop_toBottomOf="@id/editTextCueNameUpdate"/>
 
-        <!-- Category Name Spinner (Dropdown) -->
         <Spinner
-            android:id="@+id/editTextCategory"
+            android:id="@+id/editTextCategoryUpdate"
             android:layout_width="0dp"
             android:layout_height="64dp"
             android:layout_marginTop="8dp"
             android:hint="Select Category"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextEstTime" />
+            app:layout_constraintTop_toBottomOf="@id/editTextEstTimeUpdate"/>
 
-        <!-- Notes EditText -->
         <EditText
-            android:id="@+id/editTextNotes"
+            android:id="@+id/editTextNotesUpdate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="Enter Notes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextCategory" />
+            app:layout_constraintTop_toBottomOf="@id/editTextCategoryUpdate"/>
 
         <Spinner
-            android:id="@+id/editTextStatus"
+            android:id="@+id/editTextStatusUpdate"
             android:layout_width="0dp"
             android:layout_height="64dp"
             android:layout_marginTop="16dp"
-            android:hint="Status"
+            android:hint="Enter Status"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editTextNotes" />
+            app:layout_constraintTop_toBottomOf="@id/editTextNotesUpdate" />
 
         <Button
-            android:id="@+id/saveButton"
+            android:id="@+id/updateButton"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:text="Save"
+            android:text="Update"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNotes" />
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Estimated Time (Duration) EditText -->
+
+        <!-- Category Name Spinner (Dropdown) -->
+
+        <!-- Notes EditText -->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

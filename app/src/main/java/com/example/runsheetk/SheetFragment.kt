@@ -36,7 +36,7 @@ class SheetFragment : Fragment() {
     private var _binding: FragmentSheetBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var cueList: java.util.ArrayList<Cues>
+    private lateinit var cueList: ArrayList<Cues>
     private lateinit var firebaseRef : DatabaseReference
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,6 +93,7 @@ class SheetFragment : Fragment() {
                 val cueAdapter = RvCuesAdapter(cueList)
 
                 binding.cueRv.adapter = cueAdapter
+
             }
 
             override fun onCancelled(error: DatabaseError) {
